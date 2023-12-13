@@ -145,33 +145,12 @@ require('lazy').setup({
     },
   },
   {
-    -- Set lualine as statusline
-    'nvim-lualine/lualine.nvim',
-    -- See `:help lualine.txt`
-    opts = {
-      options = {
-        icons_enabled = true,
-        theme = 'auto',
-        component_separators = '|',
-        section_separators = '',
-      },
-      sections = {
-        lualine_a = {
-          'buffers',
-        }
-      }
-    },
-  },
-
-  {
     -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
     -- Enable `lukas-reineke/indent-blankline.nvim`
-    -- See `:help indent_blankline.txt`
-    opts = {
-      char = '┊',
-      show_trailing_blankline_indent = false,
-    },
+    -- See `:help ibl`
+    main = 'ibl',
+    opts = {},
   },
 
   -- "gc" to comment visual regions/lines
@@ -217,7 +196,35 @@ require('lazy').setup({
     },
     build = ':TSUpdate',
   },
-
+  {
+    'Exafunction/codeium.vim',
+    event = 'BufEnter',
+    config = function()
+      -- Change '<C-g>' here to any keycode you like.
+      vim.keymap.set('i', '<C-a>', function()
+        return vim.fn['codeium#Accept']()
+      end, { expr = true })
+      vim.keymap.set('i', '<C-j>', function()
+        return vim.fn['codeium#CycleCompletions'](1)
+      end, { expr = true })
+      vim.keymap.set('i', '<C-k>', function()
+        return vim.fn['codeium#CycleCompletions'](-1)
+      end, { expr = true })
+      vim.keymap.set('i', '<C-x>', function()
+        return vim.fn['codeium#Clear']()
+      end, { expr = true })
+    end
+  },
+  {
+    "ThePrimeagen/refactoring.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    -- config = function()
+    --   require("refactoring").setup({})
+    -- end,
+  },
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -280,7 +287,7 @@ vim.o.completeopt = 'menuone,noselect'
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
-vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = "120"
 -- [[ Basic Keymaps ]]
 
 -- Keymaps for better default experience
@@ -462,7 +469,7 @@ local servers = {
   -- clangd = {},
   gopls = {},
   pyright = {},
-  rust_analyzer = {},
+  -- rust_analyzer = {},
   -- tsserver = {},
 
   lua_ls = {

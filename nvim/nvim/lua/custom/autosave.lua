@@ -3,6 +3,7 @@
 local atttach_to_buffer = function(output_bufnr, command, pattern)
 	vim.api.nvim_create_autocmd("BufWritePost", {
 		group = vim.api.nvim_create_augroup("autosavemagic", { clear = true }),
+		pattern = pattern,
 		callback = function()
 			local append_data = function(_, data)
 				if data then
