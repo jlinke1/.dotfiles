@@ -5,6 +5,8 @@ eval "$(direnv hook zsh)"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ll="eza --long --git --header"
+alias n="nvim"
+alias lg="lazygit"
 
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
@@ -27,3 +29,7 @@ eval "$(starship init zsh)"
 
 # Created by `pipx` on 2023-11-10 14:47:13
 export PATH="$PATH:/Users/jonas/.local/bin"
+
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+export PATH=$PATH:~/roc_nightly-macos_apple_silicon-2024-01-13-79ed84fff3e
