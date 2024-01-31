@@ -7,6 +7,8 @@ eval "$(direnv hook zsh)"
 alias ll="eza --long --git --header"
 alias n="nvim"
 alias lg="lazygit"
+alias ss="osascript -e 'tell application \"spotify\" to pause'"
+alias sr="osascript -e 'tell application \"spotify\" to play'"
 
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
@@ -33,3 +35,6 @@ export PATH="$PATH:/Users/jonas/.local/bin"
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 export PATH=$PATH:~/roc_nightly-macos_apple_silicon-2024-01-13-79ed84fff3e
+
+# opam configuration
+[[ ! -r /Users/jonas/.opam/opam-init/init.zsh ]] || source /Users/jonas/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
