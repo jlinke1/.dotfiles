@@ -1,4 +1,4 @@
-require("lazy").setup({
+require("catppuccin").setup({
 	{ 'catppuccin/nvim', name = 'catppuccin' }
 })
 
