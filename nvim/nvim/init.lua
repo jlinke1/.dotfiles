@@ -508,7 +508,7 @@ end
 local servers = {
   -- clangd = {},
   gopls = {},
-  -- pyright = {},
+  pyright = {},
   -- ocamllsp = {},
   rust_analyzer = {},
   -- tsserver = {},

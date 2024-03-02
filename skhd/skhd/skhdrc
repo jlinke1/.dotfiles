@@ -43,14 +43,29 @@ ctrl + alt - s : yabai --start-service
 ctrl + alt - r : yabai --restart-service
 
 # Apps
-# Slack
-alt - s : open -a /Applications/Slack.app/Contents/MacOS/Slack
-
-# Wezterm
-alt - w : open -a /Applications/WezTerm.app
-
-# Arc
-alt - a : open -a /Applications/Arc.app
-
 # Obsidian
-alt - o : open -a /Applications/Obsidian.app
+alt - 1 : open -a /Applications/Obsidian.app
+# Mail
+alt - 2 : open -a /System/Applications/Mail.app
+# Calendar
+alt - 3 : open -a /System/Applications/Calendar.app
+# Wezterm
+alt - 4 : open -a /Applications/Wezterm.app
+# Spotify
+alt - 5 : open -a /Applications/Spotify.app
+# Basecamp
+alt - 6 : open -a /Applications/Basecamp\ 3.app
+# Arc
+alt - 7 : open -a /Applications/Arc.app
+# Pycharm
+alt - 8 : open -a /Applications/PyCharm.app
+# Slack
+alt - 9 : open -a /Applications/Slack.app
+
+# Misc
+# Sleep
+ctrl + alt - s: osascript -e 'tell application "Finder" to sleep'
+# Pause Spotify
+ctrl + alt - p: osascript -e 'tell application "Spotify" to pause'
+# Unpause Spotify
+ctrl + alt - u: osascript -e 'tell application "Spotify" to play'
