@@ -36,5 +36,8 @@ export PATH="$PATH:/Users/jonas/.local/bin"
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 export PATH=$PATH:~/roc_nightly-macos_apple_silicon-2024-01-13-79ed84fff3e
 
+# Enable vi mode
+bindkey -v
+
 # opam configuration
 [[ ! -r /Users/jonas/.opam/opam-init/init.zsh ]] || source /Users/jonas/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
