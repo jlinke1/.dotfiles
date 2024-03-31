@@ -1,4 +1,6 @@
 -- mostly copied from here: https://github.com/theopn/dotfiles/blob/main/wezterm/wezterm.lua#L93
+-- and some stuff from here: https://github.com/mrjones2014/smart-splits.nvim
+-- it is a mess! but for now, it works! ctrl-h/j/k/l to move between splits, regardless if wezterm or nvim!!
 local wezterm = require 'wezterm'
 local act = wezterm.action
 local config = {}
@@ -18,6 +20,40 @@ config.inactive_pane_hsb = {
 	brightness = 0.6
 }
 -- Keys
+local function is_vim(pane)
+	-- this is set by the plugin, and unset on ExitPre in Neovim
+	return pane:get_user_vars().IS_NVIM == 'true'
+end
+
+
+local direction_keys = {
+	h = 'Left',
+	j = 'Down',
+	k = 'Up',
+	l = 'Right',
+}
+
+local function split_nav(resize_or_move, key)
+	return {
+		key = key,
+		mods = resize_or_move == 'resize' and 'META' or 'CTRL',
+		action = wezterm.action_callback(function(win, pane)
+			if is_vim(pane) then
+				-- pass the keys through to vim/nvim
+				win:perform_action({
+					SendKey = { key = key, mods = resize_or_move == 'resize' and 'META' or 'CTRL' },
+				}, pane)
+			else
+				if resize_or_move == 'resize' then
+					win:perform_action({ AdjustPaneSize = { direction_keys[key], 3 } }, pane)
+				else
+					win:perform_action({ ActivatePaneDirection = direction_keys[key] }, pane)
+				end
+			end
+		end),
+	}
+end
+
 config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 }
 config.keys = {
 	-- Send C-a when pressing C-a twice
@@ -28,22 +64,22 @@ config.keys = {
 	-- Pane keybindings
 	{ key = "s",          mods = "LEADER",      action = act.SplitVertical { domain = "CurrentPaneDomain" } },
 	{ key = "v",          mods = "LEADER",      action = act.SplitHorizontal { domain = "CurrentPaneDomain" } },
-	{ key = "h",          mods = "LEADER",      action = act.ActivatePaneDirection("Left") },
-	{ key = "j",          mods = "LEADER",      action = act.ActivatePaneDirection("Down") },
-	{ key = "k",          mods = "LEADER",      action = act.ActivatePaneDirection("Up") },
-	{ key = "l",          mods = "LEADER",      action = act.ActivatePaneDirection("Right") },
-	{ key = "q",          mods = "LEADER",      action = act.CloseCurrentPane { confirm = true } },
-	{ key = "z",          mods = "LEADER",      action = act.TogglePaneZoomState },
-	{ key = "o",          mods = "LEADER",      action = act.RotatePanes "Clockwise" },
+	split_nav('move', 'h'),
+	split_nav('move', 'j'),
+	split_nav('move', 'k'),
+	split_nav('move', 'l'),
+	{ key = "q", mods = "LEADER", action = act.CloseCurrentPane { confirm = true } },
+	{ key = "z", mods = "LEADER", action = act.TogglePaneZoomState },
+	{ key = "o", mods = "LEADER", action = act.RotatePanes "Clockwise" },
 	-- We can make separate keybindings for resizing panes
 	-- But Wezterm offers custom "mode" in the name of "KeyTable"
-	{ key = "r",          mods = "LEADER",      action = act.ActivateKeyTable { name = "resize_pane", one_shot = false } },
+	{ key = "r", mods = "LEADER", action = act.ActivateKeyTable { name = "resize_pane", one_shot = false } },
 
 	-- Tab keybindings
-	{ key = "t",          mods = "LEADER",      action = act.SpawnTab("CurrentPaneDomain") },
-	{ key = "[",          mods = "LEADER",      action = act.ActivateTabRelative(-1) },
-	{ key = "]",          mods = "LEADER",      action = act.ActivateTabRelative(1) },
-	{ key = "n",          mods = "LEADER",      action = act.ShowTabNavigator },
+	{ key = "t", mods = "LEADER", action = act.SpawnTab("CurrentPaneDomain") },
+	{ key = "[", mods = "LEADER", action = act.ActivateTabRelative(-1) },
+	{ key = "]", mods = "LEADER", action = act.ActivateTabRelative(1) },
+	{ key = "n", mods = "LEADER", action = act.ShowTabNavigator },
 	{
 		key = "e",
 		mods = "LEADER",

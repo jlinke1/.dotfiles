@@ -35,7 +35,7 @@ require('lazy').setup({
   {
     "NeogitOrg/neogit",
     dependencies = {
-      "nvim-lua/plenary.nvim", -- required
+      "nvim-lua/plenary.nvim",  -- required
       "sindrets/diffview.nvim", -- optional - Diff integration
 
       -- Only one of these is needed, not both.
@@ -219,7 +219,7 @@ require('lazy').setup({
       },
     },
   },
-  { "catppuccin/nvim",        name = "catppuccin", priority = 1000 },
+  { "catppuccin/nvim",              name = "catppuccin", priority = 1000 },
   -- lazy.nvim
   {
     "folke/noice.nvim",
@@ -273,6 +273,7 @@ require('lazy').setup({
     --   require("refactoring").setup({})
     -- end,
   },
+  { 'mrjones2014/smart-splits.nvim' },
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -496,7 +497,7 @@ local on_attach = function(_, bufnr)
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+  nmap('<leader>k', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
