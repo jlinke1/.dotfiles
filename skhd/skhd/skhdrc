@@ -5,9 +5,9 @@ shift + alt - h : yabai -m window --focus west
 shift + alt - l : yabai -m window --focus east
 
 cmd - j : yabai -m window --swap south
-cmd - k : yabai -m window --swap north
+# cmd - k : yabai -m window --swap north
 cmd - h : yabai -m window --swap west
-cmd - l : yabai -m window --swap east
+# cmd - l : yabai -m window --swap east
 # rotate layout clockwise
 shift + alt - r : yabai -m space --rotate 270
 
@@ -46,7 +46,7 @@ ctrl + alt - r : yabai --restart-service
 # Obsidian
 alt - 1 : open -a /Applications/Obsidian.app
 # Mail
-alt - 2 : open -a /System/Applications/Mail.app
+alt - 2 : open -a /Applications/Thunderbird\ Beta.app
 # Calendar
 alt - 3 : open -a /System/Applications/Calendar.app
 # Wezterm

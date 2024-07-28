@@ -1,9 +1,10 @@
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
-vim.keymap.set('n', '<leader>st', '<Cmd>Neotree toggle <CR>')
-vim.keymap.set("n", "<leader>ff", ":w <BAR> :!black -q .<CR><CR>")
 vim.keymap.set("n", "gl", "$")
 vim.keymap.set("n", "gh", "0")
 vim.keymap.set("i", "hh", "<Esc>", { noremap = false })
+
+vim.api.nvim_set_keymap('n', '<leader>v', ':vsplit | lua vim.lsp.buf.definition()<CR>',
+	{ noremap = true, silent = true, desc = "Goto Definition in Vertical Split" })
 
 -- Move Lines
 vim.keymap.set("n", "<A-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
@@ -16,6 +17,7 @@ vim.keymap.set("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 -- Buffer
 vim.keymap.set("n", "[b", "<cmd>bp<cr>", { desc = "Previous Buffer" })
 vim.keymap.set("n", "]b", "<cmd>bn<cr>", { desc = "Next Buffer" })
+vim.keymap.set("n", "<leader>bd", "<cmd>bd<cr>", { desc = "Delete Buffer" })
 
 -- Macros
 vim.keymap.set("n", "Q", "@qj")

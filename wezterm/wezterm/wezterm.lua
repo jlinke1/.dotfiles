@@ -8,6 +8,9 @@ local config = {}
 if wezterm.config_builder then config = wezterm.config_builder() end
 config.window_background_opacity = 0.8
 
+config.window_decorations = "RESIZE"
+config.hide_tab_bar_if_only_one_tab = true
+
 config.color_scheme = 'catppuccin-mocha'
 config.font_size = 14.0
 config.send_composed_key_when_left_alt_is_pressed = false
@@ -104,6 +107,30 @@ config.keys = {
 
 	-- Lastly, workspace
 	{ key = "w", mods = "LEADER",       action = act.ShowLauncherArgs { flags = "FUZZY|WORKSPACES" } },
+	{
+		key = 'W',
+		mods = 'LEADER|SHIFT',
+		action = act.PromptInputLine {
+			description = wezterm.format {
+				{ Attribute = { Intensity = 'Bold' } },
+				{ Foreground = { AnsiColor = 'Fuchsia' } },
+				{ Text = 'Enter name for new workspace' },
+			},
+			action = wezterm.action_callback(function(window, pane, line)
+				-- line will be `nil` if they hit escape without entering anything
+				-- An empty string if they just hit enter
+				-- Or the actual line of text they wrote
+				if line then
+					window:perform_action(
+						act.SwitchToWorkspace {
+							name = line,
+						},
+						pane
+					)
+				end
+			end),
+		},
+	},
 }
 for i = 1, 9 do
 	table.insert(config.keys, {

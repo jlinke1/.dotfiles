@@ -41,7 +41,8 @@ require('lazy').setup({
       -- Only one of these is needed, not both.
       "nvim-telescope/telescope.nvim", -- optional
     },
-    config = true
+    config = true,
+    event = "VeryLazy",
   },
 
   -- Detect tabstop and shiftwidth automatically
@@ -88,6 +89,7 @@ require('lazy').setup({
   {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
+    event = "InsertEnter",
     dependencies = {
       -- Snippet Engine & its associated nvim-cmp source
       {
@@ -333,10 +335,18 @@ vim.o.autoread = true
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
--- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
 vim.opt.colorcolumn = "120"
+
+-- Enable listing of whitespace characters
+vim.opt.list = false
+
+-- Set listchars to show spaces as dots
+vim.opt.listchars = { space = "·", tab = ">·" }
+
+-- toggle list on and off
+vim.keymap.set("n", "<leader>ll", ":set list!<CR>", { desc = "Toggle list (show spaces)" })
 -- [[ Basic Keymaps ]]
 
 -- Keymaps for better default experience
@@ -391,7 +401,7 @@ vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
-
+vim.keymap.set('n', '<leader>lf', require('telescope.builtin').lsp_document_symbols, { desc = '[L]sp [F]ind Symbols' })
 require('telescope').load_extension('noice')
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -520,7 +530,7 @@ end
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
   -- clangd = {},
-  gopls = {},
+  gopls = { settings = { gopls = { gofumpt = true } } },
   pyright = {},
   -- ocamllsp = {},
   rust_analyzer = {},
