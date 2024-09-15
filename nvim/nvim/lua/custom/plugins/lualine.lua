@@ -24,6 +24,11 @@ return {
       lualine_c = {
         { codeium_status, color = { fg = "#ffffff", gui = "bold" } },
       },
+      lualine_x = { "filetype" },
+      lualine_y = { "progress" },
+      lualine_z = {
+        "location"
+      },
     }
   },
 }

@@ -17,7 +17,7 @@ vim.keymap.set("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 -- Buffer
 vim.keymap.set("n", "[b", "<cmd>bp<cr>", { desc = "Previous Buffer" })
 vim.keymap.set("n", "]b", "<cmd>bn<cr>", { desc = "Next Buffer" })
-vim.keymap.set("n", "<leader>bd", "<cmd>bd<cr>", { desc = "Delete Buffer" })
+-- vim.keymap.set("n", "<leader>bd", "<cmd>bd<cr>", { desc = "Delete Buffer" })
 
 -- Macros
 vim.keymap.set("n", "Q", "@qj")
@@ -34,6 +34,6 @@ vim.keymap.set('n', '<C-l>', require('smart-splits').move_cursor_right)
 vim.keymap.set('n', '<C-\\>', require('smart-splits').move_cursor_previous)
 
 -- Noice
-vim.keymap.set("n", "<leader>nd", function()
-	require("noice").cmd("dismiss")
-end)
+-- vim.keymap.set("n", "<leader>nd", function()
+-- 	require("noice").cmd("dismiss")
+-- end)
