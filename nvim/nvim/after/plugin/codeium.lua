@@ -1,5 +1,5 @@
 vim.g.codeium_filetypes = {
-  go = true,
+  go = false,
   python = true,
   zig = false,
   rust = false,

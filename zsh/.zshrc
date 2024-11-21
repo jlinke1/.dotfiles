@@ -9,6 +9,7 @@ alias n="nvim"
 alias lg="lazygit"
 alias ss="osascript -e 'tell application \"spotify\" to pause'"
 alias sr="osascript -e 'tell application \"spotify\" to play'"
+alias sba="source .venv/bin/activate"
 
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
