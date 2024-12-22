@@ -2,12 +2,12 @@
 -- and some stuff from here: https://github.com/mrjones2014/smart-splits.nvim
 -- it is a mess! but for now, it works! ctrl-h/j/k/l to move between splits, regardless if wezterm or nvim!!
 local wezterm = require 'wezterm'
-local sessioniser = require("functions.sessioniser")
+local sessionizer = require("functions.sessionizer")
 local act = wezterm.action
 local config = {}
 
 if wezterm.config_builder then config = wezterm.config_builder() end
-config.window_background_opacity = 0.8
+config.window_background_opacity = 1.0
 
 config.window_decorations = "RESIZE"
 config.enable_tab_bar = true
@@ -111,7 +111,9 @@ config.keys = {
 	{ key = "}", mods = "LEADER|SHIFT", action = act.MoveTabRelative(1) },
 
 	-- Sessionizer
-	{ key = "s", mods = "ALT",          action = wezterm.action_callback(sessioniser.toggle) },
+	{ key = "s", mods = "ALT",          action = wezterm.action_callback(sessionizer.toggle) },
+	{ key = "a", mods = "ALT",          action = wezterm.action_callback(sessionizer.active) },
+	{ key = "m", mods = "ALT",          action = wezterm.action_callback(sessionizer.switch_to_most_recent_workspace) },
 }
 for i = 1, 9 do
 	table.insert(config.keys, {
@@ -137,16 +139,9 @@ config.key_tables = {
 		{ key = "l",      action = act.MoveTabRelative(1) },
 		{ key = "Escape", action = "PopKeyTable" },
 		{ key = "Enter",  action = "PopKeyTable" },
+
 	}
 }
-
--- If this works again it is actually better
--- local sessionizer = wezterm.plugin.require "https://github.com/mikkasendke/sessionizer.wezterm"
--- sessionizer.apply_to_config(config)
---
--- sessionizer.config = {
--- 	paths = { "/Users/jonaslinke/workspace/github.com/jlinke1", "/Users/jonaslinke/workspace/github.com/FlexPwr" }
--- }
 
 
 return config

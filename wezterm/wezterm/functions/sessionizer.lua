@@ -1,12 +1,12 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
 
-local M = {}
+local plugin = {}
 
 local fd = "/opt/homebrew/bin/fd"
 local workspace = "/Users/jonaslinke/workspace/github.com/"
 
-M.toggle = function(window, pane)
+plugin.toggle = function(window, pane)
 	local projects = {}
 	local home = os.getenv("HOME") .. "/"
 
@@ -53,6 +53,7 @@ M.toggle = function(window, pane)
 		table.insert(projects, { label = tostring(label), id = tostring(id) })
 	end
 
+	local last_workspace = wezterm.mux.get_active_workspace()
 	window:perform_action(
 		act.InputSelector({
 			action = wezterm.action_callback(function(win, _, id, label)
@@ -71,11 +72,73 @@ M.toggle = function(window, pane)
 			end),
 			fuzzy = true,
 			title = "Select project",
+			fuzzy_description = "Select a project:",
 			choices = projects,
 		}),
 		pane
 	)
+
+	plugin.set_most_recent_workspace(last_workspace)
 end
 
+plugin.active = function(window, pane)
+	local projects = {}
+	local workspaces = wezterm.mux.get_workspace_names()
 
-return M
+	for _, ws in ipairs(workspaces) do
+		table.insert(projects, { label = tostring(ws), id = tostring(ws) })
+	end
+
+	local last_workspace = wezterm.mux.get_active_workspace()
+	window:perform_action(
+		act.InputSelector({
+			action = wezterm.action_callback(function(win, _, id, label)
+				if not id and not label then
+					wezterm.log_info("Cancelled")
+				else
+					wezterm.log_info("Selected " .. label)
+					win:perform_action(
+						act.SwitchToWorkspace({
+							name = id,
+						}),
+						pane
+					)
+				end
+			end),
+			fuzzy = true,
+			title = "Select project",
+			fuzzy_description = "Select a project:",
+			choices = projects,
+		}),
+		pane
+	)
+
+	plugin.set_most_recent_workspace(last_workspace)
+end
+
+plugin.set_most_recent_workspace = function(id)
+	if not wezterm.GLOBAL.sessionzer then
+		wezterm.GLOBAL.sessionzer = {}
+	end
+
+	wezterm.GLOBAL.sessionzer.most_recent = {
+		id = id,
+		label = "Recent (" .. id .. ")",
+	}
+end
+
+plugin.get_most_recent_workspace = function()
+	return wezterm.GLOBAL.sessionzer.most_recent
+end
+
+plugin.switch_to_most_recent_workspace = function(window, pane)
+	local last_workspace = wezterm.mux.get_active_workspace()
+	local recent = plugin.get_most_recent_workspace()
+	if recent then
+		window:perform_action(act.SwitchToWorkspace({ name = recent.id }), pane)
+	end
+
+	plugin.set_most_recent_workspace(last_workspace)
+end
+
+return plugin
