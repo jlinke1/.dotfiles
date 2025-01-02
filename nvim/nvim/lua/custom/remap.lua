@@ -33,7 +33,7 @@ vim.keymap.set('n', '<C-k>', require('smart-splits').move_cursor_up)
 vim.keymap.set('n', '<C-l>', require('smart-splits').move_cursor_right)
 vim.keymap.set('n', '<C-\\>', require('smart-splits').move_cursor_previous)
 
--- Noice
--- vim.keymap.set("n", "<leader>nd", function()
--- 	require("noice").cmd("dismiss")
--- end)
+-- Diagnostic keymaps
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
