@@ -18,9 +18,12 @@ return {
     config = function()
       local capabiblities = require('blink.cmp').get_lsp_capabilities()
       require("lspconfig").lua_ls.setup { capabiblities = capabiblities }
-      require("lspconfig").gopls.setup {}
+      require("lspconfig").gopls.setup { capabiblities = capabiblities }
+      require("lspconfig").rust_analyzer.setup { capabiblities = capabiblities }
+      require("lspconfig").pyright.setup { capabiblities = capabiblities }
 
       vim.keymap.set("n", '<leader>rn', vim.lsp.buf.rename, { desc = '[R]e[n]ame' })
+      vim.keymap.set("n", 'gd', vim.lsp.buf.definition, { desc = '[G]oto [D]efinition' })
 
       vim.api.nvim_create_autocmd('LspAttach', {
         callback = function(args)

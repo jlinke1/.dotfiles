@@ -4,7 +4,7 @@ return {
     'nvim-treesitter/nvim-treesitter-textobjects',
   },
   build = ':TSUpdate',
-
+  event = { "VeryLazy" },
   config = function()
     vim.defer_fn(function()
       require('nvim-treesitter.configs').setup {

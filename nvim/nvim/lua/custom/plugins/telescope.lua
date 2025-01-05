@@ -1,6 +1,7 @@
 return {
   'nvim-telescope/telescope.nvim',
   branch = '0.1.x',
+  event = { "VeryLazy" },
   dependencies = {
     'nvim-lua/plenary.nvim',
     -- Fuzzy Finder Algorithm which requires local dependencies to be built.
@@ -18,6 +19,26 @@ return {
   },
   config = function()
     require('telescope').setup {
+      pickers = {
+        find_files = {
+          theme = "ivy"
+        },
+        buffers = {
+          theme = "ivy"
+        },
+        lsp_references = {
+          theme = "ivy"
+        },
+        lsp_document_symbols = {
+          theme = "ivy"
+        },
+        live_grep = {
+          theme = "ivy"
+        },
+        help_tags = {
+          theme = "ivy"
+        }
+      },
       defaults = {
         mappings = {
           i = {
@@ -49,6 +70,7 @@ return {
     vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
     vim.keymap.set('n', '<leader>lf', require('telescope.builtin').lsp_document_symbols,
       { desc = '[L]sp [F]ind Symbols' })
+    vim.keymap.set('n', 'gr', require('telescope.builtin').lsp_references, { desc = '[G]oto [R]eferences' })
     vim.keymap.set("n", "<space>en", function()
       require('telescope.builtin').find_files {
         cwd = vim.fn.stdpath("config")
