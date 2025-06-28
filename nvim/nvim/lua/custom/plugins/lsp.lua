@@ -21,6 +21,7 @@ return {
       require("lspconfig").gopls.setup { capabiblities = capabiblities }
       require("lspconfig").rust_analyzer.setup { capabiblities = capabiblities }
       require("lspconfig").pyright.setup { capabiblities = capabiblities }
+      require("lspconfig").ruff.setup { capabiblities = capabiblities }
 
       vim.keymap.set("n", '<leader>rn', vim.lsp.buf.rename, { desc = '[R]e[n]ame' })
       vim.keymap.set("n", 'gd', vim.lsp.buf.definition, { desc = '[G]oto [D]efinition' })

@@ -16,7 +16,7 @@ return {
       return vim.fn['codeium#Clear']()
     end, { expr = true })
     vim.g.codeium_filetypes = {
-      go = false,
+      go = true,
       python = true,
       zig = false,
       rust = false,

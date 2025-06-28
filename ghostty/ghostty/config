@@ -1,6 +1,7 @@
-font-family = SFMono Nerd Font
+font-family = Geist Mono
 font-size=14
 
+# theme = "gruvbox-material"
 theme = "tokyonight"
 cursor-style = block
 adjust-cell-height = 35%
@@ -10,8 +11,10 @@ mouse-scroll-multiplier = 2
 window-padding-balance = true
 window-save-state = always
 
-macos-titlebar-style = tabs
+macos-titlebar-style = transparent
 window-colorspace = "display-p3"
+
+copy-on-select = true
 
 keybind = cmd+s>r=reload_config
 
@@ -28,3 +31,8 @@ keybind = cmd+s>j=goto_split:bottom
 keybind = cmd+s>k=goto_split:top
 keybind = cmd+s>h=goto_split:left
 keybind = cmd+s>l=goto_split:right
+
+# icon
+macos-icon = retro
+background-opacity = 0.9
+background-blur = true
